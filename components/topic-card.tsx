@@ -40,6 +40,8 @@ interface TopicCardProps {
   isDragging: boolean
 }
 
+const SUBTOPIC_DND_TYPE = "subtopic"
+
 export function TopicCard({
   topic,
   topicIndex,
@@ -58,6 +60,34 @@ export function TopicCard({
   isDragging,
 }: TopicCardProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [subDragIndex, setSubDragIndex] = useState<number | null>(null)
+  const reorderSubTopics = useStore((s) => s.reorderSubTopics)
+
+  const handleSubDragStart = useCallback(
+    (e: React.DragEvent, index: number) => {
+      e.stopPropagation()
+      e.dataTransfer.setData("text/plain", SUBTOPIC_DND_TYPE)
+      e.dataTransfer.effectAllowed = "move"
+      setSubDragIndex(index)
+    },
+    []
+  )
+
+  const handleSubDragOver = useCallback(
+    (e: React.DragEvent, index: number) => {
+      e.preventDefault()
+      e.stopPropagation()
+      if (subDragIndex !== null && subDragIndex !== index) {
+        reorderSubTopics(topic.name, subDragIndex, index)
+        setSubDragIndex(index)
+      }
+    },
+    [subDragIndex, topic.name, reorderSubTopics]
+  )
+
+  const handleSubDragEnd = useCallback(() => {
+    setSubDragIndex(null)
+  }, [])
 
   const totalQuestions = topic.subTopics.reduce((acc, st) => acc + st.questions.length, 0)
   const solvedQuestions = topic.subTopics.reduce(
@@ -152,17 +182,22 @@ export function TopicCard({
               </p>
             ) : (
               <div className="flex flex-col gap-1">
-                {topic.subTopics.map((st) => (
+                {topic.subTopics.map((st, stIdx) => (
                   <SubTopicSection
                     key={st.name}
                     topicName={topic.name}
                     subTopic={st}
+                    subTopicIndex={stIdx}
                     onAddQuestion={onAddQuestion}
                     onEditQuestion={onEditQuestion}
                     onDeleteQuestion={onDeleteQuestion}
                     onNotesQuestion={onNotesQuestion}
                     onEditSubTopic={onEditSubTopic}
                     onDeleteSubTopic={onDeleteSubTopic}
+                    onSubDragStart={handleSubDragStart}
+                    onSubDragOver={handleSubDragOver}
+                    onSubDragEnd={handleSubDragEnd}
+                    isSubDragging={subDragIndex === stIdx}
                   />
                 ))}
               </div>
