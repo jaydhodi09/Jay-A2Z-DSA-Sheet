@@ -8,7 +8,7 @@ const _geist = Geist({ subsets: ['latin'] })
 const _geistMono = Geist_Mono({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'DSA Question Tracker - Strivers A2Z Sheet',
+  title: 'DSA Question Tracker - Jay A2Z DSA Sheet',
   description: 'Interactive question management sheet for tracking your DSA progress with topics, sub-topics, and drag-and-drop reordering.',
 }
 

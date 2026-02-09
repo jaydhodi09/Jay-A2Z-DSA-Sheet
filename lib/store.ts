@@ -81,7 +81,7 @@ interface StoreState {
 }
 
 export const useStore = create<StoreState>((set) => ({
-  sheet: dataset.data.sheet as Sheet,
+  sheet: { ...(dataset.data.sheet as Sheet), name: "Jay A2Z DSA Sheet" },
   questions: rawQuestions,
   topics: buildHierarchy(rawQuestions),
   searchQuery: "",
