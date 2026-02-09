@@ -4,6 +4,7 @@ import { useStore } from "@/lib/store"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { BookOpen, CheckCircle2, BarChart3 } from "lucide-react"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function SheetHeader() {
   const sheet = useStore((s) => s.sheet)
@@ -33,6 +34,7 @@ export function SheetHeader() {
               {sheet.description}
             </p>
           </div>
+          <ThemeToggle />
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
