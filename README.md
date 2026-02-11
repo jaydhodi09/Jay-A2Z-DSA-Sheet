@@ -1,6 +1,3 @@
-Perfect project 👏 — this **deserves a clean, professional README**.
-Below is a **production-ready README.md** you can directly copy–paste into your GitHub repo.
-
 ---
 
 # 🚀 Jay A2Z DSA Sheet
