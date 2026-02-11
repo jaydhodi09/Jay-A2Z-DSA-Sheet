@@ -1,5 +1,3 @@
----
-
 # 🚀 Jay A2Z DSA Sheet
 
 An **interactive, open-source DSA practice sheet** inspired by Striver’s A2Z Sheet — built to help learners **track, manage, and master Data Structures & Algorithms** in a structured and intuitive way.
